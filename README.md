@@ -56,7 +56,7 @@ _Numbers show: (1) The URL and method of the REST API resource, (2) the HTTP cal
 
 To use the REST API component with any restricted access API provide the authorisation information.
 
-![alt text](https://cdn.elastic.io/documentation/restapi-component-auth.png "REST API component Basic authorisation")
+"REST API component Basic authorisation"
 _Example above shows how to add the username/password to access the API during the integration flow design._
 
 You can add the authorisation methods during the integration flow design or by going to your `Settings > Security credentials > REST client` and adding there.
@@ -74,7 +74,7 @@ Please note that the result of creating a credential is an HTTP header automatic
 
 Here is how to send a JSON data in the body. Change the **content type** to `application/json` and the **body input part** would change accordingly to accept JSON object. Please note that this field supports [JSONata](http://jsonata.org) expressions.
 
-![alt text](https://cdn.elastic.io/documentation/restapi-component-body-json-var.png "REST API component Body sending JSON data")
+"REST API component Body sending JSON data"
 _Example shows the JSON in the body where the `name` parameter value gets mapped using the value of `project_name` from the previous step of integration._
 
 ## HTTP Headers
