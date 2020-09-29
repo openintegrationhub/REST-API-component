@@ -9,13 +9,12 @@ The REST API component will perform a single REST API call when executed. Incomi
 This document covers the following topics:
 
 - [Introduction](#introduction)
-- [Authorisation methods](#authorisation-methods)
+- [Authorization methods](#authorisation-methods)
 - [Defining HTTP headers](#defining-http-headers)
 - [HTTP Headers in Response](#http-headers)
 
 ## Introduction
 
-![image]()
 _Numbers show: (1) The URL and method of the REST API resource, (2) the HTTP call headers. (3) configuration options and (4) follow redirect mode._
 
 1.  HTTP methods and URL
