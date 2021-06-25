@@ -41,15 +41,19 @@ _Numbers show: (1) The URL and method of the REST API resource, (2) the HTTP cal
   - 504: Gateway Timeout
   - DNS lookup timeout
 
-4. `Do not verify SSL certificate (unsafe)` - disable verifying the server certificate - **unsafe**.
-5. `Follow redirect mode` - If you want disable Follow Redirect functionality, you can use option `Follow redirect mode`.By default `Follow redirect mode` option has value `Follow redirects`.
-6. `Delay` - If you want to slow down requests to your API you can set delay value (in seconds) and the component will delay calling the next request after the previous request.
+- `Do not verify SSL certificate (unsafe)` - disable verifying the server certificate - **unsafe**.
+- `Follow redirect mode` - If you want disable Follow Redirect functionality, you can use option `Follow redirect mode`.By default `Follow redirect mode` option has value `Follow redirects`.
+- `Delay` - If you want to slow down requests to your API you can set delay value (in seconds) and the component will delay calling the next request after the previous request.
    Time for the delay is calculated as `Delay`/ `Call Count` and shouldn't be more than 1140 seconds (19 minutes due to platform limitation).
    The `Call Count` value by default is 1. If you want to use another value, please set the `Call Count` field.
    Notice: See [Known Limitations](#known-limitations) about `Delay` value.
-7. `Call Count` - the field should be used only in pair with `Delay`, default to 1.
-8. `Request timeout` - Timeout period in milliseconds (1-1140000) while component waiting for server response, also can be configured with REQUEST_TIMEOUT environment variable if configuration field is not provided. Defaults to 100000 (100 sec).
+- `Call Count` - the field should be used only in pair with `Delay`, default to 1.
+- `Request timeout` - Timeout period in milliseconds (1-1140000) while component waiting for server response, also can be configured with REQUEST_TIMEOUT environment variable if configuration field is not provided. Defaults to 100000 (100 sec).
+
    Notice: Specified for component REQUEST_TIMEOUT enviroment variable would be overwritten by specified value of Request timeout, default value would be also overwritten
+- `responseToSnapshotTransform` - This is a JSONata applied to the REST response body and stored in the snapshot as an object.
+
+4. `Snapshot in URL tranform` - If a snapshot value is available it is added into the msg.data object as `msg.data.oihsnapshot`. This can be used in conjuction with the `responseToSnapshotTransform` to perform paging. You can save information for the next page from the response in the snapshot and then use the snapshot information in the next request URL.
 
 ## Authorisation methods
 
