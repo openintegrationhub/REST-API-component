@@ -4,7 +4,7 @@
   "description": "This is the rest api component for the OIH",
   "main": "node_modules/@openintegrationhub/ferryman/runGlobal.js",
   "scripts": {
-    "test": "LOG_LEVEL=info; mocha test --recursive --timeout 50000"
+    "test": "LOG_LEVEL=fatal mocha test --recursive --timeout 50000"
   },
   "repository": {
     "type": "git",
