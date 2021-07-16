@@ -1206,12 +1206,8 @@ describe('httpRequest action', () => {
         });
 
       await processAction.call(emitter, msg, cfg);
-      expect(messagesNewMessageWithBodyStub.lastCall.args[0]).to.deep.equal({
-        errorCode: 302,
-        errorMessage: 'Request failed with status code 302',
-        // eslint-disable-next-line max-len
-        errorStack: 'Error: Request failed with status code 302\n    at createError (/Users/rwinkle/git/blendededge/REST-API-component/node_modules/axios/lib/core/createError.js:16:15)\n    at settle (/Users/rwinkle/git/blendededge/REST-API-component/node_modules/axios/lib/core/settle.js:17:12)\n    at IncomingMessage.handleStreamEnd (/Users/rwinkle/git/blendededge/REST-API-component/node_modules/axios/lib/adapters/http.js:260:11)\n    at IncomingMessage.emit (events.js:311:20)\n    at endReadableNT (_stream_readable.js:1204:12)\n    at processTicksAndRejections (internal/process/task_queues.js:84:21)',
-      });
+      expect(messagesNewMessageWithBodyStub.lastCall.args[0].errorCode).to.equal(302);
+      expect(messagesNewMessageWithBodyStub.lastCall.args[0].errorMessage).to.equal('Request failed with status code 302');
     });
     it('redirect request false && dontThrowErrorFlg false', async () => {
       const messagesNewMessageWithBodyStub = stub(
