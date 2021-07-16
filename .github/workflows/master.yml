@@ -49,7 +49,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           file: ./Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: blendededge/rest-api-component-oih:latest
+          tags: ${{ secrets.DOCKER_REPO_PATH }}/rest-api-component-oih:latest
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
 
