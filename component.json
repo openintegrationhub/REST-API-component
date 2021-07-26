@@ -74,6 +74,9 @@
           "label": "Request timeout",
           "viewClass": "TextFieldView",
           "note": "Timeout period in milliseconds while component waiting for server response, should be positive integer (1-1140000), defaults to 100000 (100 sec)"
+        },
+        "passThrough": {
+          "label": "Temporary config option to update returned data object"
         }
       }
     }
@@ -136,6 +139,10 @@
           "label": "Request timeout",
           "viewClass": "TextFieldView",
           "note": "Timeout period in milliseconds while component waiting for server response, should be positive integer (1-1140000), defaults to 100000 (100 sec)"
+        },
+        "saveReceivedData": {
+          "label": "Save Received Data",
+          "note": "Saves and returns the Received and Response data"
         }
       }
     }
