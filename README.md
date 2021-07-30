@@ -53,7 +53,9 @@ _Numbers show: (1) The URL and method of the REST API resource, (2) the HTTP cal
    Notice: Specified for component REQUEST_TIMEOUT enviroment variable would be overwritten by specified value of Request timeout, default value would be also overwritten
 - `responseToSnapshotTransform` - This is a JSONata applied to the REST response body and stored in the snapshot as an object.
 
-4. `Snapshot in URL tranform` - If a snapshot value is available it is added into the msg.data object as `msg.data.oihsnapshot`. This can be used in conjuction with the `responseToSnapshotTransform` to perform paging. You can save information for the next page from the response in the snapshot and then use the snapshot information in the next request URL.
+- `Snapshot in URL tranform` - If a snapshot value is available it is added into the msg.data object as `msg.data.oihsnapshot`. This can be used in conjuction with the `responseToSnapshotTransform` to perform paging. You can save information for the next page from the response in the snapshot and then use the snapshot information in the next request URL.
+
+- `Save Received Data` - If enabled, returned message will include the data received by the REST component and the resulting data.
 
 ## Authorisation methods
 
