@@ -697,6 +697,41 @@ describe('httpRequest action', () => {
         'Request failed with status code 408',
       );
     });
+
+    it('jsonata response validator false && enableRebound true', async () => {
+      const method = 'POST';
+      const msg = {
+        data: {
+          url: 'http://example.com',
+        },
+      };
+
+      const cfg = {
+        enableRebound: true,
+        jsonataResponseValidator: 'data.result',
+        reader: {
+          url: '$$.data.url',
+          method,
+        },
+        auth: {},
+      };
+
+      const responseMessage = {
+        data: { result: false },
+      };
+
+      nock(transform(msg, { customMapping: cfg.reader.url }))
+        .intercept('/', method)
+        .delay(20 + Math.random() * 200)
+        .reply((uri, requestBody) => [200, responseMessage]);
+
+
+      await processAction.call(emitter, msg, cfg);
+      expect(emitter.emit.withArgs('rebound').callCount).to.be.equal(1);
+      expect(emitter.emit.withArgs('rebound').args[0][1]).to.be.equal(
+        'JSONata validation against response failed and request should be retried in rebound queue',
+      );
+    });
   });
 
   describe('when some args are wrong', () => {
