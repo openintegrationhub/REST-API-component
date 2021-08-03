@@ -48,6 +48,7 @@ _Numbers show: (1) The URL and method of the REST API resource, (2) the HTTP cal
    The `Call Count` value by default is 1. If you want to use another value, please set the `Call Count` field.
    Notice: See [Known Limitations](#known-limitations) about `Delay` value.
 - `Call Count` - the field should be used only in pair with `Delay`, default to 1.
+- `jsonataResponseValidator` - This works in coordination with the `enableRebound` configuration to throw a status code 429. When this JSONata configuration is present and `enableRebound` set to `true`, it is assumed the JSONata will resolve to a boolean.  If the boolean is false the incoming component message will be requeued and tried again. Otherwise the response will be processed as it normally would.
 - `Request timeout` - Timeout period in milliseconds (1-1140000) while component waiting for server response, also can be configured with REQUEST_TIMEOUT environment variable if configuration field is not provided. Defaults to 100000 (100 sec).
 
    Notice: Specified for component REQUEST_TIMEOUT enviroment variable would be overwritten by specified value of Request timeout, default value would be also overwritten
