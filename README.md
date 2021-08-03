@@ -49,6 +49,7 @@ _Numbers show: (1) The URL and method of the REST API resource, (2) the HTTP cal
    Notice: See [Known Limitations](#known-limitations) about `Delay` value.
 - `Call Count` - the field should be used only in pair with `Delay`, default to 1.
 - `jsonataResponseValidator` - This works in coordination with the `enableRebound` configuration to throw a status code 429. When this JSONata configuration is present and `enableRebound` set to `true`, it is assumed the JSONata will resolve to a boolean.  If the boolean is false the incoming component message will be requeued and tried again. Otherwise the response will be processed as it normally would.
+- `httpReboundErrorCodes` - Array of error status codes from the API response object which will cause the request to be put in the rebound queue.  Messages in the rebound queue will be retried at a progressively longer interval (15 sec, 30 sec, 1 min, 2 min, 4 min, 8 min, etc.). Setting this value will override default values [408, 423, 429, 500, 502, 503, 504]. You should include those status codes unless you have a reason not to.
 - `Request timeout` - Timeout period in milliseconds (1-1140000) while component waiting for server response, also can be configured with REQUEST_TIMEOUT environment variable if configuration field is not provided. Defaults to 100000 (100 sec).
 
    Notice: Specified for component REQUEST_TIMEOUT enviroment variable would be overwritten by specified value of Request timeout, default value would be also overwritten

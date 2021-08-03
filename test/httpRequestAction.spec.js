@@ -732,6 +732,37 @@ describe('httpRequest action', () => {
         'JSONata validation against response failed and request should be retried in rebound queue',
       );
     });
+
+    it('add 404 to rebound status code list && enableRebound true', async () => {
+      const method = 'POST';
+      const msg = {
+        data: {
+          url: 'http://example.com',
+        },
+      };
+
+      const cfg = {
+        enableRebound: true,
+        httpReboundErrorCodes: [408, 404, 423, 429, 500, 502, 503, 504],
+        reader: {
+          url: '$$.data.url',
+          method,
+        },
+        auth: {},
+      };
+
+      nock(transform(msg, { customMapping: cfg.reader.url }))
+        .intercept('/', method)
+        .delay(20 + Math.random() * 200)
+        .reply(404);
+
+
+      await processAction.call(emitter, msg, cfg);
+      expect(emitter.emit.withArgs('rebound').callCount).to.be.equal(1);
+      expect(emitter.emit.withArgs('rebound').args[0][1]).to.be.equal(
+        'Request failed with status code 404',
+      );
+    });
   });
 
   describe('when some args are wrong', () => {
