@@ -86,12 +86,147 @@ describe('httpRequest action paging', () => {
       },
     };
 
-    nock(transform(msg, { customMapping: cfg.reader.url }, undefined))
+    nock(transform(msg, { customMapping: cfg.reader.url }))
       .post('/')
       .reply(() => [200, responseMessage]);
     await processAction.call(emitter, msg, cfg);
 
     expect(emitter.emit.withArgs('snapshot').callCount).to.be.equal(1);
     expect(emitter.emit.withArgs('snapshot').args[0][1]).to.deep.equal(snapshot);
+  });
+
+  it('paging loop, 1 page', async () => {
+    const messagesNewMessageWithBodyStub = stub(
+      messages,
+      'newMessage',
+    ).returns(Promise.resolve());
+    const msg = {
+      id: '123456789',
+      data: {
+        url: 'http://example.com',
+      },
+    };
+    const cfg = {
+      reader: {
+        url: "$$.data.url & '?page=' & data.oihsnapshot.nextPage & '&date_modified=' & data.oihsnapshot.timestamp",
+        method: 'GET',
+        responseToSnapshotTransform: "{ 'nextPage': data.offset * data.page_size <= data.total_count ? data.offset + 1 : (),'timestamp': oihsnapshot.timestamp}",
+        pagingEnabled: true,
+        lastPageValidator: 'data.offset * data.page_size >= data.total_count',
+      },
+    };
+    const responseMessage = {
+      data: {
+        test: 'my data',
+        offset: 1,
+        page_size: 10,
+        total_count: 4,
+      },
+    };
+    msg.data.oihsnapshot = { nextPage: 0, timestamp: Date.UTC(0) };
+    nock(transform(msg, { customMapping: cfg.reader.url }))
+      .get('/')
+      .query(true)
+      .reply(() => [200, responseMessage]);
+    delete msg.data.oihsnapshot; // Snapshot needs to be removed before sending test message
+    await processAction.call(emitter, msg, cfg);
+    expect(messagesNewMessageWithBodyStub.calledOnce).to.be.true;
+    expect(messagesNewMessageWithBodyStub.args[0][0]).to.be.eql(responseMessage);
+  });
+
+  it('paging loop, invalid lastPage does not continue looping', async () => {
+    const messagesNewMessageWithBodyStub = stub(
+      messages,
+      'newMessage',
+    ).returns(Promise.resolve());
+    const msg = {
+      id: '123456789',
+      data: {
+        url: 'http://example.com',
+      },
+    };
+    const cfg = {
+      reader: {
+        url: "$$.data.url & '?page=' & data.oihsnapshot.nextPage & '&date_modified=' & data.oihsnapshot.timestamp",
+        method: 'GET',
+        responseToSnapshotTransform: "{ 'nextPage': data.offset * data.page_size <= data.total_count ? data.offset + 1 : (),'timestamp': oihsnapshot.timestamp}",
+        pagingEnabled: true,
+        lastPageValidator: '"undefined"',
+      },
+    };
+    const responseMessage = {
+      data: {
+        test: 'my data',
+        offset: 1,
+        page_size: 10,
+        total_count: 4,
+      },
+    };
+    msg.data.oihsnapshot = { nextPage: 0, timestamp: Date.UTC(0) };
+    nock(transform(msg, { customMapping: cfg.reader.url }))
+      .get('/')
+      .query(true)
+      .reply(() => [200, responseMessage]);
+    delete msg.data.oihsnapshot; // Snapshot needs to be removed before sending test message
+    await processAction.call(emitter, msg, cfg);
+    expect(messagesNewMessageWithBodyStub.calledOnce).to.be.true;
+    expect(messagesNewMessageWithBodyStub.args[0][0]).to.be.eql(responseMessage);
+  });
+
+  it('paging loop, 3 pages', async () => {
+    const messagesNewMessageWithBodyStub = stub(
+      messages,
+      'newMessage',
+    ).returns(Promise.resolve());
+    const msg = {
+      id: '123456789',
+      data: {
+        url: 'http://example.com',
+      },
+    };
+    const cfg = {
+      reader: {
+        url: "$$.data.url & '?page=' & data.oihsnapshot.nextPage & '&date_modified=' & data.oihsnapshot.timestamp",
+        method: 'GET',
+        responseToSnapshotTransform: "{ 'nextPage': data.offset * data.page_size <= data.total_count ? data.offset + 1 : (),'timestamp': oihsnapshot.timestamp}",
+        pagingEnabled: true,
+        lastPageValidator: 'data.offset * data.page_size >= data.total_count',
+      },
+    };
+    const responseMessage = {
+      data: {
+        test: 'my data',
+        offset: 1,
+        page_size: 10,
+        total_count: 20,
+      },
+    };
+    msg.data.oihsnapshot = { nextPage: 1, timestamp: Date.UTC(0) };
+    nock(transform(msg, { customMapping: cfg.reader.url }))
+      .get('/')
+      .query(true)
+      .reply(() => [200, responseMessage]);
+    const responseMessage1 = {
+      data: {
+        test: 'my data',
+        offset: 2,
+        page_size: 10,
+        total_count: 20,
+      },
+    };
+    msg.data.oihsnapshot = { nextPage: 2, timestamp: Date.UTC(0) };
+    console.log(`What do we have here? ${transform(msg, { customMapping: cfg.reader.url })}`);
+    nock(transform(msg, { customMapping: cfg.reader.url }))
+      .get('/')
+      .query(true)
+      .reply(() => [200, responseMessage1]);
+    delete msg.data.oihsnapshot; // Snapshot needs to be removed before sending test message
+    await processAction.call(emitter, msg, cfg);
+    expect(messagesNewMessageWithBodyStub.calledTwice).to.be.true;
+    expect(messagesNewMessageWithBodyStub.args[0][0]).to.be.eql(responseMessage);
+  });
+
+  it('paging loop, error thrown', async () => {
+
   });
 });

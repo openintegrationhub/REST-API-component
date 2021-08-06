@@ -97,3 +97,12 @@ In this case output structure of component will be:
       statusMessage:<HTTP response status message>
     }
 ```
+## Trigger Paging
+
+The component has the ability to loop through pages in one run of the trigger or handle only one page per trigger.  If only doing one page of data per trigger you will even out the amount of data over time. You request whatever the page size at each trigger. If looping through all of the pages in one trigger, you will have uneven payload sizes sent through the flow but can expect to get all of the data sooner.
+
+The options for configuraing one page per trigger are part of the general configurations above.  For paging within one trigger of the component the following options are available:
+
+- `enablePaging` - This must be enabled for the paging to work
+- `responseToSnapshotTransform` - See above and look at paging unit tests for an example. This allows you to extract and build nextPage information for the next iterations url JSONata
+- `lastPageValidator` - JSONata applied to the response which evaluates to a boolean. This JSONata determines whether there is a nextPage or stop iterating pages.
