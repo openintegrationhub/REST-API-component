@@ -77,6 +77,19 @@ REST API component supports 4 authorisation types:
 
 Please note that the result of creating a credential is an HTTP header automatically placed for you. You can also specify the authorisation in the headers section directly.
 
+### Secret Service Integration
+
+To securely retrieve credentials from the secret service ferryman will inject a secret object by specifying the `credential_id` at the top level of a component configuration in a flow.  The `credential_id` should be a secret service secret ID.
+
+The secret service can currently support these secret types:
+- SIMPLE - Constains a `username` and `passphrase` and will be used for `Basic Auth`
+- MIXED - The `payload` of this type is a stringified JSON object. The `payload` string is parsed into an object before being added to the component config object. Because of the flexible nature of this type a JSONata transformation config is provided `secretAuthTransform`. The output of this transformation will replace the `config.auth` configuration.  The `secretAuthTransform` will work for tranforming the data for other types but isn't necessary since the other secret types have well-defined structure.
+- API_KEY - Contains a `key` and `headerName` and will be used for `API Key Auth`
+- OA1_TWO_LEGGED - Contains `expiresAt`
+- OA1_THREE_LEGGED - Contains `accessToken` which will be sent as a Bearer Token in the request header
+- OA2_AUTHORIZATION_CODE - Contains `accessToken` which will be sent as a Bearer Token in the request header
+- SESSION_AUTH - Contains `accessToken` which will be sent as a Bearer Token in the request header
+
 ### Sending JSON data
 
 Here is how to send a JSON data in the body. Change the **content type** to `application/json` and the **body input part** would change accordingly to accept JSON object. Please note that this field supports [JSONata](http://jsonata.org) expressions.
