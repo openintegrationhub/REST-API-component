@@ -215,7 +215,6 @@ describe('httpRequest action paging', () => {
       },
     };
     msg.data.oihsnapshot = { nextPage: 2, timestamp: Date.UTC(0) };
-    console.log(`What do we have here? ${transform(msg, { customMapping: cfg.reader.url })}`);
     nock(transform(msg, { customMapping: cfg.reader.url }))
       .get('/')
       .query(true)
