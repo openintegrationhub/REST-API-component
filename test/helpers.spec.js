@@ -10,7 +10,7 @@ describe('helper functions', () => {
       23456: { nextPage: 3, timestamp: (Date.now() - 60000) },
     };
     const id = '3';
-    const responseMessage = { nextPage: 1, timestamp: Date.UTC(0) };
+    const responseMessage = { nextPage: 0, timestamp: Date.UTC(0) };
     const result = getMessageSnapshot(id, snapshot);
     expect(result).to.be.eql(responseMessage);
   });
@@ -26,7 +26,7 @@ describe('helper functions', () => {
   });
   it('getMessageSnapshot snapshot undefined', () => {
     const id = '12345';
-    const responseMessage = { nextPage: 1, timestamp: Date.UTC(0) };
+    const responseMessage = { nextPage: 0, timestamp: Date.UTC(0) };
     const result = getMessageSnapshot(id);
     expect(result).to.be.eql(responseMessage);
   });
