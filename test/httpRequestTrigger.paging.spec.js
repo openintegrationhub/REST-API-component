@@ -243,6 +243,9 @@ describe('httpRequest action paging', () => {
         responseToSnapshotTransform: "{ 'nextPage': data.offset * data.page_size <= data.total_count ? data.offset + 1 : (),'timestamp': oihsnapshot.timestamp}",
         pagingEnabled: true,
         lastPageValidator: 'data.offset * data.page_size >= data.total_count',
+        body: {
+          raw: "$$.oihsnapshot.nextPage"
+        },
       },
     };
     const responseMessage = {
