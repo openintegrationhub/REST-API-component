@@ -238,7 +238,7 @@ describe('httpRequest action paging', () => {
     };
     const cfg = {
       reader: {
-        url: "$$.data.url & '?page=' & data.oihsnapshot.nextPage & '&date_modified=' & data.oihsnapshot.timestamp",
+        url: "$$.data.url",
         method: 'POST',
         responseToSnapshotTransform: "{ 'nextPage': data.offset * data.page_size <= data.total_count ? data.offset + 1 : (),'timestamp': oihsnapshot.timestamp}",
         pagingEnabled: true,
