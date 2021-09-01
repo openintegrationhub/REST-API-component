@@ -20,8 +20,8 @@
     "httpRequestTrigger": {
       "main": "./lib/triggers/httpRequestTrigger.js",
       "title": "HTTP request",
+      "description": "Will send a GET/POST/PUT/DELETE HTTP request and parse the response back to the flow",
       "help": {
-        "description": "Will send a GET/POST/PUT/DELETE HTTP request and parse the response back to the flow",
         "link": "/components/rest-api/index.html#http-request"
       },
       "type": "polling",
@@ -82,8 +82,8 @@
     "httpRequestAction": {
       "main": "./lib/actions/httpRequestAction.js",
       "title": "HTTP request",
+      "description": "Will send a GET/POST/PUT/DELETE HTTP request and parse the response back to the flow",
       "help": {
-        "description": "Will send a GET/POST/PUT/DELETE HTTP request and parse the response back to the flow",
         "link": "/components/rest-api/index.html#http-request-1"
       },
       "metadata": {
