@@ -25,9 +25,7 @@
         "link": "/components/rest-api/index.html#http-request"
       },
       "type": "polling",
-      "metadata": {
-        "out": {}
-      },
+      "metadata": {},
       "fields": {
         "reader": {
           "label": "REST API",
@@ -86,9 +84,7 @@
       "help": {
         "link": "/components/rest-api/index.html#http-request-1"
       },
-      "metadata": {
-        "out": {}
-      },
+      "metadata": {},
       "fields": {
         "reader": {
           "label": "REST API",
