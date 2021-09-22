@@ -238,13 +238,13 @@ describe('httpRequest action paging', () => {
     };
     const cfg = {
       reader: {
-        url: "$$.data.url",
+        url: '$$.data.url',
         method: 'POST',
         responseToSnapshotTransform: "{ 'nextPage': data.offset * data.page_size <= data.total_count ? data.offset + 1 : (),'timestamp': oihsnapshot.timestamp}",
         pagingEnabled: true,
         lastPageValidator: 'data.offset * data.page_size >= data.total_count',
         body: {
-          raw: "$$.oihsnapshot.nextPage"
+          raw: '$$.oihsnapshot.nextPage',
         },
       },
     };
@@ -278,7 +278,16 @@ describe('httpRequest action paging', () => {
     await processAction.call(emitter, msg, cfg);
     expect(messagesNewMessageWithBodyStub.calledTwice).to.be.true;
     expect(messagesNewMessageWithBodyStub.args[0][0]).to.be.eql(responseMessage);
-  })
+    expect(emitter.emit.callCount).to.equal(7);
+    expect(emitter.emit.args[0][0]).to.equal('data');
+    expect(emitter.emit.args[1][0]).to.equal('snapshot');
+    expect(emitter.emit.args[2][0]).to.equal('snapshot');
+    expect(emitter.emit.args[3][0]).to.equal('data');
+    expect(emitter.emit.args[4][0]).to.equal('snapshot');
+    expect(emitter.emit.args[5][0]).to.equal('snapshot');
+    // Validate end is only called once
+    expect(emitter.emit.args[6][0]).to.equal('end');
+  });
 
   it('paging loop, error thrown', async () => {
 
