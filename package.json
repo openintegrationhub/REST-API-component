@@ -17,7 +17,7 @@
     "Connector"
   ],
   "dependencies": {
-    "@openintegrationhub/ferryman": "~1.5.5",
+    "@openintegrationhub/ferryman": "~1.7.0",
     "axios": "^0.21.2",
     "duplex": "1.0.0",
     "form-data": "^4.0.0",
