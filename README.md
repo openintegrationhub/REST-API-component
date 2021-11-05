@@ -1,8 +1,8 @@
-# REST-API-component
+# HTTP/REST API Component
 
-The **REST API component** is a component that allows you to connect to any REST or HTTP API without programming your own components and deploying them into the platform.
+The **HTTP/REST API component** is a component that allows you to connect to any REST or HTTP API without programming your own components and deploying them into the platform.
 
-The REST API component will perform a single HTTP call when executed. Incoming data gets used to configure the API call made and the response from the API call will be the output.
+The REST API component will perform a single HTTP call when executed. Incoming message data gets used to configure the API call made. The response from the API call will be the output message.
 
 This document covers the following topics:
 
@@ -73,19 +73,16 @@ The following options are used to set up the HTTP request. They all live under a
 
 To use the REST API component with any restricted access API provide the authorization credentials directly into the component or use the secret service to inject them into the request at runtime.
 
-The REST API component supports 4 authorisation types:
+The REST API component supports 4 authorization types:
 
-- **`No Auth`** - use this method to work with any open REST API
-- **`Basic Auth`** - use it to provide login credentials like **username/password**
-- **`API Key Auth`** - use it to provide `API Key` to access the resource
-- **`OAuth2`** - use it to provide `Oauth2` credentials to access the resource. Currently it is implemented `Authorization code` OAuth2 flow.
+- **`No Auth`** - Use this method to work with any open REST API
+- **`Basic Auth`** - Use it to provide login credentials like username/password
+- **`API Key Auth`** - Use it to provide `API Key` to access the resource
+- **`OAuth2`** - Use it to provide `Oauth2` credentials to access the resource. Currently it is implemented `Authorization code` OAuth2 flow.
 
-Please note that the result of creating a credential is an HTTP header automatically placed for you. You can also specify the authorisation in the headers section directly.
 
 ### Direct Authorization
-You can add the authorization method directly into the flow steps using the REST API component.
-
-Authorization configuration is placed under a field called `auth`. The following fields are available under `auth`:
+You can add the authorization method directly into the flow steps using the REST API component. Authorization configuration is placed under a field called `auth`. The following fields are available under `auth`:
 
 - **`type`** - Must be one of `No Auth`, `Basic Auth`, or `API Key Auth`.
 - **`basic`** - `basic.username` and `basic.password` are where to store the credentials for performing basic authorization. Only use these if `type` is `Basic Auth`.
@@ -132,4 +129,148 @@ Set a `header` with a key set to `Content-Type` and a value set to to `applicati
 Set a `header` with a key set to `Content-Type` and a value set to to `application/json`. Use the `body` field to execute JSONata on the input message to define the structure of the GraphQL query or mutation. Data is passed through through flows as JSON by default, so no further transformation is required.
 
 ## Configuration Examples
-TBD
+The following are some simple examples to help describe the ways you can configure the REST API Component.
+
+### Basic GET Request
+This example shows the following:
+
+- Making a GET reqiest
+- Use of the integration with the secret service to include a credential
+- Using JSONata to embed an ID from the incoming message in the request URL
+
+```
+{
+  "id": "rest-example",
+  "componentId": "XXXXX",
+  "name": "Rest Component Example",
+  "function": "httpRequestAction",
+  "credentials_id": "XXXXX",
+  "fields": {
+    "reader": {
+      "url": "'https://someserver.com/api/thing/' & $$.data.id",
+      "method": "GET",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "'application/json'"
+        }
+      ]
+    }
+  }
+}
+```
+
+### Basic POST Request
+This example shows the following:
+
+- Making a POST request
+- Referencing an object deeper inside the message
+- Credentials hardcoded into the configuration
+
+```
+{
+  "id": "rest-example",
+  "componentId": "XXXXX",
+  "name": "REST Example",
+  "function": "httpRequestAction",
+  "fields": {
+    "reader": {
+      "url": "'https://someserver.com/api/thing/'",
+      "method": "POST",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "'application/json'"
+        }
+      ],
+      "body": {
+        "raw": "$$.data.objects.thing"
+      }
+    },
+    "auth": {
+      "type": "Basic Auth",
+      "basic": {
+        "username": "apiuser",
+        "password": "password"
+      }
+    }
+  }
+}
+```
+
+###Override Default Error Behavior
+This example shows the following:
+
+- Enabling rebound to occur on certain errors (`enableRebound`)
+- Configuring specific error codes to concern (`httpReboundErrorCodes`)
+- Bypassing the default REST component behavior to stop and emit and error when an error status code is received (`dontThrowErrorFlg`)
+- Send both the error response (`dontThrowErrorFlg`) and the input message (`saveReceivedData`) when emitting a message to the next step
+
+```
+{
+  "id": "rest-example",
+  "componentId": "XXXXX",
+  "name": "REST Example",
+  "function": "httpRequestAction",
+  "credentials_id": "XXXXX",
+  "fields": {
+    "reader": {
+      "url": "'https://someserver.com/api/thing/' & $$.data.id",
+      "method": "GET",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "'application/json'"
+        }
+      ]
+    },
+    "dontThrowErrorFlg": true,
+    "saveReceivedData": true,
+    "enableRebound": true,
+    "httpReboundErrorCodes": [
+      408,
+      404,
+      423,
+      429,
+      500,
+      502,
+      503,
+      504
+    ]
+  }
+}
+```
+
+### Paging a REST API
+This example shows the following:
+
+- Enabling paging on the REST API component (`pagingEnabled`)
+- Defining when the last page has been processed (`lastPageValidator`)
+- Defining how to define a request for the "next" page (`responseToSnapshotTransform`)
+
+Note: The JSONata expressions defined in this example are for example purposes and aren't necessarilly going to work on any specific API.
+
+```
+{
+  "id": "get-updated-customers",
+  "componentId": "60f0fdf26694b2001cffe457",
+  "name": "Get Updated Customers",
+  "function": "httpRequestAction",
+  "credentials_id": "611691e013bf51001334a94d",
+  "fields": {
+    "reader": {
+      "url": "'https://someserver.com/api/thing/'",
+      "method": "GET",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "'application/json'"
+        }
+      ],
+      "pagingEnabled": true,
+      "lastPageValidator": "$$.pagesRemaining < 1",
+      "responseToSnapshotTransform": "{'nextPage': offset < total_count ? offset + 100 : ()}"
+    }
+  }
+}
+```
