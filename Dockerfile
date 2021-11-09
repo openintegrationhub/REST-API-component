@@ -1,6 +1,6 @@
 FROM node:12-alpine AS base
 RUN apk --no-cache add \
-    python2 \
+    python3 \
     make \
     g++ \
     libc6-compat
