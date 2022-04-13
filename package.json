@@ -37,7 +37,7 @@
     "yarn": "1.22.0"
   },
   "author": "Ioannis Lafiotis",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/openintegrationhub/REST-API-component/issues"
   },
