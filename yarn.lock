@@ -23,10 +23,10 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@blendededge/ferryman-extensions@^1.0.3":
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/@blendededge/ferryman-extensions/-/ferryman-extensions-1.0.3.tgz#c075e6077f4258defdb3e275afdfac7a45b319b7"
-  integrity sha512-vgb71QkJO4I6eqALj7AQxQeW2qJFutbWDs1gG1Pl7nccadroen7qfLGkMloTWFNkafjsmMqJz8RYI2G9bQraYw==
+"@blendededge/ferryman-extensions@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@blendededge/ferryman-extensions/-/ferryman-extensions-1.0.4.tgz#8990fa21fa7529825ca145966728d858382c2cf2"
+  integrity sha512-XEdrzI8TnOUdFSVF69A0G63jbN0L+NgzHrSZHCx7WKDtyAFuNbbpsIpG0miDZ3EE9JjeVVFrmV6VxjO6thY9SA==
   dependencies:
     lodash "^4.17.21"
 
