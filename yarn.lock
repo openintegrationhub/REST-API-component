@@ -23,6 +23,13 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
+"@blendededge/ferryman-extensions@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@blendededge/ferryman-extensions/-/ferryman-extensions-1.0.4.tgz#8990fa21fa7529825ca145966728d858382c2cf2"
+  integrity sha512-XEdrzI8TnOUdFSVF69A0G63jbN0L+NgzHrSZHCx7WKDtyAFuNbbpsIpG0miDZ3EE9JjeVVFrmV6VxjO6thY9SA==
+  dependencies:
+    lodash "^4.17.21"
+
 "@elastic.io/component-logger@0.0.1":
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/@elastic.io/component-logger/-/component-logger-0.0.1.tgz#f71488fe25c4b331b0934115f9ba53bfdf67b341"
@@ -1725,7 +1732,7 @@ lodash.set@^4.3.2:
   resolved "https://registry.yarnpkg.com/lodash.set/-/lodash.set-4.3.2.tgz#d8757b1da807dde24816b0d6a84bea1a76230b23"
   integrity sha1-2HV7HagH3eJIFrDWqEvqGnYjCyM=
 
-lodash@4.17.21, lodash@^4.13.1, lodash@^4.17.10, lodash@^4.17.12, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19:
+lodash@4.17.21, lodash@^4.13.1, lodash@^4.17.10, lodash@^4.17.12, lodash@^4.17.14, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.21:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
