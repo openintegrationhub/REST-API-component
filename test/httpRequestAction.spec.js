@@ -38,6 +38,35 @@ describe('httpRequest action', () => {
     nock.cleanAll();
   });
 
+  describe('API key credentials', () => {
+    const msg = {
+      data: {
+        url: 'http://example.com',
+      },
+    };
+    const cfg = {
+      reader: {
+        url: '$$.data.url',
+        method: 'POST',
+        headers: [],
+      },
+      auth: {},
+    };
+
+    it('should accept an authorization header with a bearer token', async () => {
+      cfg.headerName = 'authorization';
+      cfg.key = 'Bearer 1234567890';
+
+      const requestNock = nock(msg.data.url)
+      .intercept('/', 'POST')
+      .matchHeader('authorization', 'Bearer 1234567890')
+      .reply((uri, requestBody) => [200, { success: true }])
+
+      await processAction.call(emitter, msg, cfg);
+      expect(requestNock.isDone())
+    })
+  })
+
   describe('oauth2 credentials', () => {
     const msg = {
       data: {
