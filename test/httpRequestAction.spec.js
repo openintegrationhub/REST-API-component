@@ -54,19 +54,19 @@ describe('httpRequest action', () => {
     };
 
     it('should accept an authorization header with a bearer token', async () => {
-      cfg.headerName = 'authorization';
+      cfg.headerName = 'Authorization';
       cfg.key = 'Bearer 1234567890';
 
       const requestNock = nock(msg.data.url)
-      .intercept('/', 'POST')
-      .matchHeader('authorization', 'Bearer 1234567890')
-      .matchHeader('Authorization', undefined)
-      .reply((uri, requestBody) => [200, { success: true }])
+        .intercept('/', 'POST')
+        .matchHeader('authorization', 'Bearer 1234567890')
+        .matchHeader('Authorization', undefined)
+        .reply((uri, requestBody) => [200, { success: true }]);
 
       await processAction.call(emitter, msg, cfg);
-      expect(requestNock.isDone())
-    })
-  })
+      expect(requestNock.isDone());
+    });
+  });
 
   describe('oauth2 credentials', () => {
     const msg = {
