@@ -75,6 +75,9 @@
         },
         "passThrough": {
           "label": "Temporary config option to update returned data object"
+        },
+        "attachmentServiceUrl": {
+          "label": "The URL for the Attachment Storage Service"
         }
       }
     }
@@ -139,6 +142,9 @@
         "saveReceivedData": {
           "label": "Save Received Data",
           "note": "Saves and returns the Received and Response data"
+        },
+        "attachmentServiceUrl": {
+          "label": "The URL for the Attachment Storage Service"
         }
       }
     }

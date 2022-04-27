@@ -16,9 +16,11 @@ This document covers the following topics:
 ## Full List of Configuration Fields {#configuration}
 The following is a complete list of configuration fields that are available on this component.
 
+- **`attachmentServiceUrl`** - The url to use for connecting to the Attachment Storage Service.
+
 - **`auth`** - If you are embedding authorization directly into the flow, instead of using the Secret Service, authorization coniguration goes here. See "Direct Authorization".
 
-- **`callCount`** - the field should be used only in pair with `delay` and is used to further refine the delay between API calls. If not set, it defaults to `1`. Use call count with `delay` to define logic that says "execute x calls per y time in seconds". 
+- **`callCount`** - The field should be used only in pair with `delay` and is used to further refine the delay between API calls. If not set, it defaults to `1`. Use call count with `delay` to define logic that says "execute x calls per y time in seconds".
 
 - **`delay`** - If you want to slow down requests to your API you can set delay value (in seconds) and the component will delay calling the next request after the previous request.Time for the delay is calculated as `delay`/ `callCount` and shouldn't be more than 1140 seconds (19 minutes due to platform limitation). The `callCount` value by default is `1`. If you want to use another value, please set the `callCount` field. Notice: See [Known Limitations](#known-limitations) about `delay` value.
 
@@ -274,3 +276,11 @@ Note: The JSONata expressions defined in this example are for example purposes a
   }
 }
 ```
+
+### Attachment Storage Service Interaction
+
+The url for the Attachment Storage Service can be supplied, in descending order of precedence:
+
+- specifying a `attachmentServiceUrl` value in the node's fields object
+- environment variable `ELASTICIO_ATTACHMENT_STORAGE_SERVICE_BASE_URL`
+- default value of `http://attachment-storage-service.oih-prod-ns.svc.cluster.local:3002`
