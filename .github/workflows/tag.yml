@@ -18,8 +18,11 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: Check Out Repo 
+      - name: Check Out Repo
         uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.release.target_commitish }}
+          fetch-depth: 0
       - run: git config --global user.name 'Blended Edge'
       - run: git config --global user.email 'robb@blendededge.com'
       - name: NPM Increment Version
@@ -61,3 +64,7 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
+      - run: git push
+        env:
+          # The secret is passed automatically. Nothing to configure.
+          github-token: ${{ secrets.GITHUB_TOKEN }}
