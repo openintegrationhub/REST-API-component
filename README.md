@@ -6,14 +6,14 @@ The REST API component will perform a single HTTP call when executed. Incoming m
 
 This document covers the following topics:
 
-- [Configuration Fields](#configuration)
-- [Defining Requests](#request)
-- [Authorization](#authorization)
-- [Paging APIs](#paging)
-- [Different Data Types](#data-types)
-- [Configuration Examples](#examples)
+- Configuration Fields
+- Defining Requests
+- Authorization
+- Paging APIs
+- Different Data Types
+- Configuration Examples
 
-## Full List of Configuration Fields {#configuration}
+## Full List of Configuration Fields
 The following is a complete list of configuration fields that are available on this component.
 
 - **`attachmentServiceUrl`** - The url to use for connecting to the Attachment Storage Service.
@@ -60,18 +60,18 @@ The following is a complete list of configuration fields that are available on t
 
 - **`splitResult`** - If set to `true` and the API response is an array, seperate messages will be created for each item of array. Otherwise one message with the entire array will be emitted. Default is set to `false`.
 
-## Request {#request}
+## Request
 The following options are used to set up the HTTP request. They all live under a configuration field called `reader`:
 
 - **`url`** - A JSONata expression that executes against the message passed into the component to define the URL for the HTTP request. Hint: To hardcode a static URL, simply wrap it in single quotes to make it a basic JSONata expression.
 
 - **`method`** - The HTTP method to be executed. `GET`, `PUT`, `POST`, `DELETE` and `PATCH` are supported.
 
-- **`body`** - A JSONata expression that executes against the message passed into the component to define the request body for any HTTP request that doesn't use the methpod `GET`. Hint: To just accept the message passed in as the body, without making any transformation, simply use `$$` to make it a basic JSONata expression that references the root of the message.
+- **`body`** - A JSONata expression that executes against the message passed into the component to define the request body for any HTTP request that doesn't use the method `GET`. Hint: To just accept the message passed in as the message data, without making any transformation, simply use `$$` to make it a basic JSONata expression that references the root of the message. Unlike older versions of this component, this JSONata executes relative to `msg` not `msg.data` or `msg.body`.
 
 - **`headers`** - An array of objects with `key` and `value` as the only properties on each. `key` is used to store the header name and `value` its value.
 
-## Authorization {#authorization}
+## Authorization
 
 To use the REST API component with any restricted access API provide the authorization credentials directly into the component or use the secret service to inject them into the request at runtime.
 
@@ -103,7 +103,7 @@ The secret service can currently support these secret types:
 - **OA2_AUTHORIZATION_CODE** - Contains `accessToken` which will be sent as a Bearer Token in the request header
 - **SESSION_AUTH** - Contains `accessToken` which will be sent as a Bearer Token in the request header
 
-## Paging {#paging}
+## Paging
 
 The component has the ability to loop through pages in one run of the trigger or handle only one page per trigger.  If only doing one page of data per trigger you will even out the amount of data over time. You request whatever the page size at each trigger. If looping through all of the pages in one trigger, you will have uneven payload sizes sent through the flow but can expect to get all of the data sooner.
 
@@ -117,7 +117,8 @@ The options for configuring one page per trigger are part of the general configu
 
 Paging is often implemented on scheduled flows, executed by the Scheduler Service.
 
-## Data Types {#data-types}
+## Data Types
+
 For any requests that are not using the `GET` method, the following describes how to use the REST component to execute requests of different data types used in the body.
 
 ### JSON
