@@ -17,13 +17,14 @@
     "Connector"
   ],
   "dependencies": {
-    "@blendededge/ferryman-extensions": "^1.1.2",
-    "@openintegrationhub/ferryman": "^2.1.0",
+    "@blendededge/ferryman-extensions": "^1.2.1",
+    "@openintegrationhub/ferryman": "^2.1.1",
     "@openintegrationhub/ferryman-1-7-0": "npm:@openintegrationhub/ferryman@^1.7.0",
     "axios": "^0.27.2",
     "duplex": "1.0.0",
     "form-data": "^4.0.0",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "xml2js": "^0.4.23"
   },
   "devDependencies": {
     "@elastic.io/component-logger": "0.0.1",

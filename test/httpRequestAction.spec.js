@@ -948,23 +948,89 @@ describe('httpRequest action', () => {
         auth: {},
       };
 
+      const xml = `<?xml version="1.0" encoding="UTF-8"?>
+      <note>
+        <to>Tove</to>
+        <from>Jani</from>
+        <heading>Reminder</heading>
+        <body>Don't forget me this weekend!</body>
+      </note>`;
+
+      const expectedJSON = {
+        note: {
+          to: "Tove",
+          from: "Jani",
+          heading: "Reminder",
+          body: "Don't forget me this weekend!"
+        }
+      };
+
       nock(transform(msg, { customMapping: cfg.reader.url }))
         .intercept('/', method)
         .delay(20 + Math.random() * 200)
-        .reply(200, '<xml>foo</xml>', {
+        .reply(200, xml, {
           'Content-Type': 'application/xml',
         });
 
       await processAction.call(emitter, msg, cfg);
-      expect(messagesNewMessageWithBodyStub.lastCall.args[0]).to.deep.equal('<xml>foo</xml>');
+      expect(messagesNewMessageWithBodyStub.lastCall.args[0]).to.deep.equal(expectedJSON);
+    });
+    it('Valid XML Response with explicit arrays', async () => {
+      const messagesNewMessageWithBodyStub = stub(
+        messages,
+        'newMessage',
+      ).returns(Promise.resolve());
+      const method = 'POST';
+      const msg = {
+        data: {
+          url: 'http://example.com',
+        },
+      };
 
-      // TODO: Converting xml to JSON appears to have been removed and will need added back in
-      // expect(messagesNewMessageWithBodyStub.lastCall.args[0]).to.deep.equal({
-      //   headers: { "content-type": "application/xml" },
-      //   body: { xml: "foo" },
-      //   statusCode: 200,
-      //   statusMessage: null,
-      // });
+      const cfg = {
+        dontThrowErrorFlg: true,
+        reader: {
+          url: '$$.data.url',
+          method,
+        },
+        auth: {},
+        explicitArray: true
+      };
+
+      const xml = `<?xml version="1.0" encoding="UTF-8"?>
+      <note>
+        <to>Tove</to>
+        <from>Jani</from>
+        <heading>Reminder</heading>
+        <body>Don't forget me this weekend!</body>
+      </note>`;
+
+      const expectedJSON = {
+        note: {
+          to: [
+            "Tove"
+          ],
+          from: [
+            "Jani"
+          ],
+          heading: [
+            "Reminder"
+          ],
+          body: [
+            "Don't forget me this weekend!"
+          ]
+        }
+      };
+
+      nock(transform(msg, { customMapping: cfg.reader.url }))
+        .intercept('/', method)
+        .delay(20 + Math.random() * 200)
+        .reply(200, xml, {
+          'Content-Type': 'application/xml',
+        });
+
+      await processAction.call(emitter, msg, cfg);
+      expect(messagesNewMessageWithBodyStub.lastCall.args[0]).to.deep.equal(expectedJSON);
     });
     it('Valid XML Response && dontThrowErrorFlg false', async () => {
       const messagesNewMessageWithBodyStub = stub(
@@ -987,20 +1053,33 @@ describe('httpRequest action', () => {
         auth: {},
       };
 
+      const xml = `<?xml version="1.0" encoding="UTF-8"?>
+      <note>
+        <to>Tove</to>
+        <from>Jani</from>
+        <heading>Reminder</heading>
+        <body>Don't forget me this weekend!</body>
+      </note>`;
+
+      const expectedJSON = {
+        note: {
+          to: "Tove",
+          from: "Jani",
+          heading: "Reminder",
+          body: "Don't forget me this weekend!"
+        }
+      };
+
       nock(transform(msg, { customMapping: cfg.reader.url }))
         .intercept('/', method)
         .delay(20 + Math.random() * 200)
-        .reply(200, '<xml>foo</xml>', {
+        .reply(200, xml, {
           'Content-Type': 'application/xml',
         });
 
       await processAction.call(emitter, msg, cfg);
 
-      expect(messagesNewMessageWithBodyStub.lastCall.args[0]).to.deep.equal('<xml>foo</xml>');
-      // TODO: Converting to JSON has been removed and needs added back or use the XML component
-      // expect(messagesNewMessageWithBodyStub.lastCall.args[0]).to.deep.equal({
-      //   xml: "foo",
-      // });
+      expect(messagesNewMessageWithBodyStub.lastCall.args[0]).to.deep.equal(expectedJSON);
     });
     it('Invalid XML Response', async () => {
       const method = 'POST';
