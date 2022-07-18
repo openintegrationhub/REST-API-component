@@ -23,12 +23,13 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@blendededge/ferryman-extensions@^1.1.2":
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/@blendededge/ferryman-extensions/-/ferryman-extensions-1.1.2.tgz#aba1bb11de6c2e2f6b986b9fef67207cb9a95d4e"
-  integrity sha512-ZU7ZXTlJWIQQOEjvsEj/QY7VKk2GykVMTa1+BRqyAjB4LblFxDBQx8ZVqH1aSXKKJhxo8ZG3xEA0l0cb81bYhA==
+"@blendededge/ferryman-extensions@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@blendededge/ferryman-extensions/-/ferryman-extensions-1.2.1.tgz#6c5ab22d2ca856c74e7cd30caed5f3931e6b54d9"
+  integrity sha512-+BhCLacjXzht0bkFODoLqqdn2VzxPc2vjRJ+tSl7tALFxB+wN7L1UQPvqNWCcvxQochrQDhsjGEhLOloXWLK+Q==
   dependencies:
     axios "^0.27.0"
+    events "^3.3.0"
     lodash "^4.17.21"
     uuid "^8.3.2"
 
@@ -1000,6 +1001,11 @@ etag@~1.8.1:
   version "1.8.1"
   resolved "https://registry.npmjs.org/etag/-/etag-1.8.1.tgz"
   integrity sha1-Qa4u62XvpiJorr/qg6x9eSmbCIc=
+
+events@^3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/events/-/events-3.3.0.tgz#31a95ad0a924e2d2c419a813aeb2c4e878ea7400"
+  integrity sha512-mQw+2fkQbALzQ7V0MY0IqdnXNOeTtP4r0lN9z7AAawCXgqea7bDii20AYrIBrFd/Hx0M2Ocz6S111CaFkUcb0Q==
 
 express@4.17.1:
   version "4.17.1"
