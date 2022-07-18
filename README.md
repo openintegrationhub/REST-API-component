@@ -38,6 +38,8 @@ The following is a complete list of configuration fields that are available on t
   - 504: Gateway Timeout
   - DNS lookup timeout
 
+- **`explicitArray`** - XML responses are automatically parsed into JSON. When `explicitArray` is set to `true`, child nodes will always be put in an array. When `false` (the default), child nodes will only be put in an array if there is more than one child node.
+
 - **`followRedirect`** - By default the `followRedirect` option is set to to the value `followRedirects` and will allow your API request to follow redirects on the server for up to 5 redirects. If you want disable Follow Redirect functionality, you can set the `followRedirect` option to `doNotFollowRedirects`.
 
 - **`httpReboundErrorCodes`** - Array of error status codes from the API response object which will cause the request to be put in the rebound queue.  Messages in the rebound queue will be retried at a progressively longer interval (15 sec, 30 sec, 1 min, 2 min, 4 min, 8 min, etc.). Setting this value will override default values [408, 423, 429, 500, 502, 503, 504]. You should include those status codes unless you have a reason not to.
