@@ -38,6 +38,48 @@ describe('httpRequest action', () => {
     nock.cleanAll();
   });
 
+  describe('Dont Throw Error Flag', () => {
+    it('dontThrowErrorFlg true should return error data and headers', async () => {
+      const messagesNewMessageWithBodyStub = stub(
+        messages,
+        'newMessage',
+      ).returns(Promise.resolve());
+      nock('http://example.com')
+        .get('/YourAccount')
+        .delay(20 + Math.random() * 200)
+        .reply((uri, requestBody) => [404, { headers: ['one'], data: { errorInfo: 'my error' } }]);
+      const method = 'GET';
+      const msg = {
+        data: {
+          url: 'http://example.com/YourAccount',
+        },
+      };
+
+      const cfg = {
+        reader: {
+          url: '$$.data.url',
+          method,
+        },
+        followRedirect: 'followRedirects',
+        dontThrowErrorFlg: true,
+        auth: {},
+      };
+
+      await processAction.call(emitter, msg, cfg);
+      expect(
+        messagesNewMessageWithBodyStub.lastCall.args[0].errorCode
+      ).to.eql(
+        404,
+      );
+      expect(
+        messagesNewMessageWithBodyStub.lastCall.args[0].errorData.data,
+      ).to.eql({ errorInfo: 'my error' });
+      expect(
+        messagesNewMessageWithBodyStub.lastCall.args[0].errorData.headers,
+      ).to.eql(['one']);
+    });
+  })
+
   describe('API key credentials', () => {
     const msg = {
       data: {
