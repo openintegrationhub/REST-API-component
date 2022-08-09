@@ -39,7 +39,6 @@ describe('httpRequest action', () => {
   });
 
   describe('Dont Throw Error Flag', () => {
-    // (uri, requestBody) => [200, { success: true }]
     it('dontThrowErrorFlg true should return error data and headers', async () => {
       const messagesNewMessageWithBodyStub = stub(
         messages,
