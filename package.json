@@ -1,6 +1,6 @@
 {
   "name": "rest-api-component",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "This is the rest api component for the OIH",
   "main": "node_modules/@openintegrationhub/ferryman/runGlobal.js",
   "scripts": {
