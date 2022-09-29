@@ -770,6 +770,34 @@ describe('httpRequest action', () => {
       );
     });
 
+    it('timeout error && enableRebound true', async () => {
+      const method = 'POST';
+      const msg = {
+        data: {
+          url: 'http://example.com',
+        },
+      };
+
+      const cfg = {
+        enableRebound: true,
+        reader: {
+          url: '$$.data.url',
+          method,
+        },
+        auth: {},
+        requestTimeoutPeriod: 100
+      };
+
+      nock(transform(msg, { customMapping: cfg.reader.url }))
+        .intercept('/', method)
+        .delayConnection(200)
+        .replyWithError('');
+
+      await processAction.call(emitter, msg, cfg).catch((e) => {
+        expect(emitter.emit.withArgs('rebound').callCount).to.be.equal(1);
+      })
+    });
+
     it('jsonata response validator false && enableRebound true', async () => {
       const method = 'POST';
       const msg = {
