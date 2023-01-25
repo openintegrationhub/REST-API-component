@@ -1,7 +1,5 @@
 FROM node:12-alpine AS base
-RUN apk --no-cache add \
-    python3 \
-    make \
+ENV ELASTICIO_OTEL_SERVICE_NAME=COMPONENT:REST
     g++ \
     libc6-compat
 
