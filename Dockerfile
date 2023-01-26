@@ -1,5 +1,8 @@
-FROM node:12-alpine AS base
+FROM node:14-alpine AS base
+
 ENV ELASTICIO_OTEL_SERVICE_NAME=COMPONENT:REST
+
+RUN apk --no-cache add \
     g++ \
     libc6-compat
 
