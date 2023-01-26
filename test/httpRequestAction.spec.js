@@ -53,6 +53,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com/YourAccount',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -85,6 +86,7 @@ describe('httpRequest action', () => {
       data: {
         url: 'http://example.com',
       },
+      metadata: {},
     };
     const cfg = {
       reader: {
@@ -115,6 +117,7 @@ describe('httpRequest action', () => {
       data: {
         url: 'http://example.com',
       },
+      metadata: {},
     };
     const cfg = {
       reader: {
@@ -349,6 +352,7 @@ describe('httpRequest action', () => {
           url: 'http://example.com',
         },
         passthrough: { test: 'test' },
+        metadata: {},
       };
       const cfg = {
         splitResult: true,
@@ -378,6 +382,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com',
         },
+        metadata: {},
       };
       const cfg = {
         splitResult: false,
@@ -406,6 +411,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com',
         },
+        metadata: {},
       };
       const cfg = {
         splitResult: true,
@@ -440,6 +446,7 @@ describe('httpRequest action', () => {
           data: {
             url: 'http://example.com',
           },
+          metadata: {},
         };
 
         const cfg = {
@@ -465,7 +472,7 @@ describe('httpRequest action', () => {
     });
     ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'].forEach((method) => {
       it(`jsonata correctness ${method} test`, async () => {
-        const msg = { data: { foo: 'bar' } };
+        const msg = { data: { foo: 'bar' }, metadata: { } };
         const cfg = {
           reader: {
             url:
@@ -518,6 +525,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -555,6 +563,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -605,6 +614,7 @@ describe('httpRequest action', () => {
           data: {
             url: 'http://example.com',
           },
+          metadata: {},
         };
 
         const rawString = '"Lorem ipsum dolor sit amet, consectetur'
@@ -641,6 +651,7 @@ describe('httpRequest action', () => {
             url: 'http://example.com',
             world: 'world',
           },
+          metadata: {},
         };
 
         const cfg = {
@@ -692,6 +703,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -718,6 +730,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -747,6 +760,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -776,6 +790,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -804,6 +819,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -839,6 +855,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -871,6 +888,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'example.com',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -891,6 +909,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'example.com',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -911,6 +930,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'example.com',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -942,6 +962,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -975,6 +996,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -1007,6 +1029,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -1055,6 +1078,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -1112,6 +1136,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -1157,6 +1182,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -1192,6 +1218,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -1228,6 +1255,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -1258,6 +1286,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -1292,6 +1321,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -1322,6 +1352,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -1355,6 +1386,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com/YourAccount',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -1390,6 +1422,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com/YourAccount',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -1426,6 +1459,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com/YourAccount',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -1464,6 +1498,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com/YourAccount',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -1501,6 +1536,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com/YourAccount',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -1538,6 +1574,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com/YourAccount',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -1663,6 +1700,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com/YourAccount',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -1695,6 +1733,7 @@ describe('httpRequest action', () => {
         data: {
           url: 'http://example.com/YourAccount',
         },
+        metadata: {},
       };
 
       const cfg = {
@@ -1725,6 +1764,7 @@ describe('httpRequest action', () => {
           url: 'http://example.com',
         },
         passthrough: { test: 'test' },
+        metadata: {},
       };
       const cfg = {
         splitResult: true,
@@ -1756,6 +1796,7 @@ describe('httpRequest action', () => {
           url: 'https://httpstat.us/200?sleep=5000',
         },
         passthrough: { test: 'test' },
+        metadata: {},
       };
       const cfg = {
         splitResult: true,

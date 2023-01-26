@@ -45,6 +45,7 @@ describe('httpRequest action paging', () => {
       data: {
         url: 'http://example.com',
       },
+      metadata: {},
     };
     const cfg = {
       reader: {
@@ -70,6 +71,7 @@ describe('httpRequest action paging', () => {
       data: {
         url: 'http://example.com',
       },
+      metadata: {},
     };
     const cfg = {
       reader: {
@@ -105,6 +107,7 @@ describe('httpRequest action paging', () => {
       data: {
         url: 'http://example.com',
       },
+      metadata: {},
     };
     const cfg = {
       reader: {
@@ -144,6 +147,7 @@ describe('httpRequest action paging', () => {
       data: {
         url: 'http://example.com',
       },
+      metadata: {},
     };
     const cfg = {
       reader: {
@@ -183,6 +187,7 @@ describe('httpRequest action paging', () => {
       data: {
         url: 'http://example.com',
       },
+      metadata: {},
     };
     const cfg = {
       reader: {
@@ -235,6 +240,7 @@ describe('httpRequest action paging', () => {
       data: {
         url: 'http://example.com',
       },
+      metadata: {},
     };
     const cfg = {
       reader: {
@@ -278,13 +284,15 @@ describe('httpRequest action paging', () => {
     await processAction.call(emitter, msg, cfg);
     expect(messagesNewMessageWithBodyStub.calledTwice).to.be.true;
     expect(messagesNewMessageWithBodyStub.args[0][0]).to.be.eql(responseMessage);
-    expect(emitter.emit.callCount).to.equal(7);
+    expect(emitter.emit.callCount).to.equal(9);
     expect(emitter.emit.args[0][0]).to.equal('data');
     expect(emitter.emit.args[1][0]).to.equal('snapshot');
-    expect(emitter.emit.args[2][0]).to.equal('snapshot');
-    expect(emitter.emit.args[3][0]).to.equal('data');
-    expect(emitter.emit.args[4][0]).to.equal('snapshot');
+    expect(emitter.emit.args[2][0]).to.equal('end');
+    expect(emitter.emit.args[3][0]).to.equal('snapshot');
+    expect(emitter.emit.args[4][0]).to.equal('data');
     expect(emitter.emit.args[5][0]).to.equal('snapshot');
+    expect(emitter.emit.args[6][0]).to.equal('end');
+    expect(emitter.emit.args[7][0]).to.equal('snapshot');
     // Validate end is only called once
     expect(emitter.emit.args[6][0]).to.equal('end');
   });
