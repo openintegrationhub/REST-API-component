@@ -24,7 +24,7 @@
     "duplex": "1.0.0",
     "form-data": "^4.0.0",
     "uuid": "^8.3.2",
-    "xml2js": "^0.4.23"
+    "xml2js": "^0.5.0"
   },
   "devDependencies": {
     "@elastic.io/component-logger": "0.0.1",
